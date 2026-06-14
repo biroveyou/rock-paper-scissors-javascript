@@ -20,28 +20,24 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
-        humanChoice = humanChoice.toLowerCase();
+    humanChoice = humanChoice.toLowerCase();
 
-        const route = humanChoice + "-" + computerChoice;
+    const route = humanChoice + "-" + computerChoice;
 
-        if (humanChoice === computerChoice) {
-            console.log("That's a draw!");
-            return;
-        }
-        if (routesMap.get(route) === 1) {
-            console.log(`You won! ${humanChoice} beats ${computerChoice}`);
-            humanScore++;
-            return;
-        }
-
-        console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+    if (humanChoice === computerChoice) {
+        console.log("That's a draw!");
         return;
-        }
+    }
+    if (routesMap.get(route)) {
+        console.log(`You won! ${humanChoice} beats ${computerChoice}`);
+        humanScore++;
+        return;
+    }
+    console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+    return;
+}
 
 const routesMap = new Map([
-    ["rock-paper",      2],
-    ["paper-scissors",  2],
-    ["scissors-rock",   2],
     ["scissors-paper",  1],
     ["rock-scissors",   1],
     ["paper-rock",      1]
