@@ -13,4 +13,10 @@ function getComputerChoice() {
         return "scissors";
     }
 }
- 
+
+function getHumanChoice() {
+    const humanChoice = prompt("Your turn! Choose rock, paper or scissors (lowercase only)")
+    return humanChoice;
+}
+
+console.log(getHumanChoice());
