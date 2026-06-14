@@ -1,6 +1,6 @@
 "use strict";
 
-function computerChoice() {
+function getComputerChoice() {
     // Get a random number in a variable
     const randomNumber = Math.floor(Math.random() * 100);
     
@@ -13,3 +13,4 @@ function computerChoice() {
         return "scissors";
     }
 }
+ 
