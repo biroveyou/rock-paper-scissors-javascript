@@ -26,15 +26,33 @@ function playRound(humanChoice, computerChoice) {
 
     if (humanChoice === computerChoice) {
         console.log("That's a draw!");
-        return;
+        return 3;
     }
     if (routesMap.get(route)) {
-        console.log(`You won! ${humanChoice} beats ${computerChoice}`);
-        humanScore++;
-        return;
+        console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+        return 1;
     }
     console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
-    return;
+    return 2;
+}
+
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+
+    for (let i = 0; i < 5; i++) {
+        let winner = playRound(getHumanChoice(), getComputerChoice());
+        if (winner === 1) {
+            humanScore++;
+        } else if (winner === 2) {
+            computerScore++;
+        }
+    }
+    if (humanScore > computerScore) {
+        console.log(`You won the game! Total points: ${humanScore}`);
+    } else {
+        console.log(`You lost the game! Total points: ${humanScore}`);
+    }
 }
 
 const routesMap = new Map([
@@ -43,7 +61,4 @@ const routesMap = new Map([
     ["paper-rock",      1]
 ]);
 
-let humanScore = 0;
-let computerScore = 0;
-
-playRound(getHumanChoice(), getComputerChoice());
+playGame();
