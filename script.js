@@ -55,16 +55,27 @@ function playGame() {
     // }
 }
 
-const routesMap = new Map([
+const routesMap = new Map([ 
     ["scissors-paper",  1],
     ["rock-scissors",   1],
     ["paper-rock",      1]
 ]);
 
-const rockBtn = document.createElement("button");
-const paperBtn = document.createElement("button");
-const scissorsBtn = document.createElement("button");
+const btnContainer = document.querySelector(".buttonContainer");
 
-rockBtn.addEventListener("click", playRound("rock", getComputerChoice));
-paperBtn.addEventListener("click", playRound("paper", getComputerChoice));
-scissorsBtn.addEventListener("click", playRound("scissors", getComputerChoice));
+const rockBtn = document.createElement("button");
+rockBtn.textContent = "Rock";
+
+const paperBtn = document.createElement("button");
+paperBtn.textContent = "Paper";
+
+const scissorsBtn = document.createElement("button");
+scissorsBtn.textContent = "Scissors";
+
+rockBtn.addEventListener("click", () => {playRound("rock", getComputerChoice())});
+paperBtn.addEventListener("click", () => {playRound("paper", getComputerChoice())});
+scissorsBtn.addEventListener("click", () => {playRound("scissors", getComputerChoice())});
+
+btnContainer.appendChild(rockBtn);
+btnContainer.appendChild(paperBtn);
+btnContainer.appendChild(scissorsBtn);
