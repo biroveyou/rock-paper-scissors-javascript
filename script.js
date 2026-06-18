@@ -40,19 +40,19 @@ function playGame() {
     let humanScore = 0;
     let computerScore = 0;
 
-    for (let i = 0; i < 5; i++) {
-        let winner = playRound(getHumanChoice(), getComputerChoice());
-        if (winner === 1) {
-            humanScore++;
-        } else if (winner === 2) {
-            computerScore++;
-        }
-    }
-    if (humanScore > computerScore) {
-        console.log(`You won the game! Total points: ${humanScore}`);
-    } else {
-        console.log(`You lost the game! Total points: ${humanScore}`);
-    }
+    // for (let i = 0; i < 5; i++) {
+    //     let winner = playRound(getHumanChoice(), getComputerChoice());
+    //     if (winner === 1) {
+    //         humanScore++;
+    //     } else if (winner === 2) {
+    //         computerScore++;
+    //     }
+    // }
+    // if (humanScore > computerScore) {
+    //     console.log(`You won the game! Total points: ${humanScore}`);
+    // } else {
+    //     console.log(`You lost the game! Total points: ${humanScore}`);
+    // }
 }
 
 const routesMap = new Map([
@@ -61,4 +61,7 @@ const routesMap = new Map([
     ["paper-rock",      1]
 ]);
 
-playGame();
+const rockBtn = document.createElement("button");
+const paperBtn = document.createElement("button");
+const scissorsBtn = document.createElement("button");
+
