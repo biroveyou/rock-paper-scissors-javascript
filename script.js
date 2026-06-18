@@ -14,11 +14,6 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let userInput = prompt("Your turn! Choose rock, paper or scissors")
-    return userInput;
-}
-
 function playRound(humanChoice, computerChoice) {
     humanChoice = humanChoice.toLowerCase();
 
@@ -26,19 +21,58 @@ function playRound(humanChoice, computerChoice) {
 
     if (humanChoice === computerChoice) {
         console.log("That's a draw!");
-        return 3;
+        return 0;
     }
     if (routesMap.get(route)) {
         console.log(`You win! ${humanChoice} beats ${computerChoice}`);
         return 1;
     }
     console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
-    return 2;
+    return -1;
+}
+
+function getScore(choice, gameScore) {
+    const result = playRound(choice, getComputerChoice());
+    if (result === 1) {
+        playerScore++;
+        gameScore.textContent = `Player Score: ${playerScore} - Computer Score: ${computerScore}`;
+    } else if (result === -1) {
+        computerScore++;
+        gameScore.textContent = `Player Score: ${playerScore} - Computer Score: ${computerScore}`;
+    }
+    return result;
 }
 
 function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
+    // Make the references of the HTML file
+    const btnContainer = document.querySelector(".buttonContainer");
+    const scoreContainer = document.querySelector(".scoreContainer");
+    const resultWindow = document.querySelector(".resultWindow");
+
+    const gameScore = document.createElement("p");
+    gameScore.textContent = `Player Score: ${playerScore} - Computer Score: ${computerScore}`;
+    scoreContainer.appendChild(gameScore);
+
+    const rockBtn = document.createElement("button");
+    rockBtn.textContent = "Rock";
+    const paperBtn = document.createElement("button");
+    paperBtn.textContent = "Paper";
+    const scissorsBtn = document.createElement("button");
+    scissorsBtn.textContent = "Scissors";
+
+    rockBtn.addEventListener("click", () => {
+        getScore("rock", gameScore);
+    });
+    paperBtn.addEventListener("click", () => {
+        getScore("paper", gameScore)
+    });
+    scissorsBtn.addEventListener("click", () => {
+        getScore("scissors", gameScore)
+    });
+
+    btnContainer.appendChild(rockBtn);
+    btnContainer.appendChild(paperBtn);
+    btnContainer.appendChild(scissorsBtn);
 
     // for (let i = 0; i < 5; i++) {
     //     let winner = playRound(getHumanChoice(), getComputerChoice());
@@ -61,21 +95,8 @@ const routesMap = new Map([
     ["paper-rock",      1]
 ]);
 
-const btnContainer = document.querySelector(".buttonContainer");
+// Track the scores
+let playerScore = 0;
+let computerScore = 0;
 
-const rockBtn = document.createElement("button");
-rockBtn.textContent = "Rock";
-
-const paperBtn = document.createElement("button");
-paperBtn.textContent = "Paper";
-
-const scissorsBtn = document.createElement("button");
-scissorsBtn.textContent = "Scissors";
-
-rockBtn.addEventListener("click", () => {playRound("rock", getComputerChoice())});
-paperBtn.addEventListener("click", () => {playRound("paper", getComputerChoice())});
-scissorsBtn.addEventListener("click", () => {playRound("scissors", getComputerChoice())});
-
-btnContainer.appendChild(rockBtn);
-btnContainer.appendChild(paperBtn);
-btnContainer.appendChild(scissorsBtn);
+playGame();
