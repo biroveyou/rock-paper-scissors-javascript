@@ -65,3 +65,6 @@ const rockBtn = document.createElement("button");
 const paperBtn = document.createElement("button");
 const scissorsBtn = document.createElement("button");
 
+rockBtn.addEventListener("click", playRound("rock", getComputerChoice));
+paperBtn.addEventListener("click", playRound("paper", getComputerChoice));
+scissorsBtn.addEventListener("click", playRound("scissors", getComputerChoice));
