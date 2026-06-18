@@ -14,25 +14,25 @@ function getComputerChoice() {
     }
 }
 
-function playRound(humanChoice, computerChoice) {
+function playRound(humanChoice, computerChoice, messageText) {
     humanChoice = humanChoice.toLowerCase();
 
     const route = humanChoice + "-" + computerChoice;
 
     if (humanChoice === computerChoice) {
-        console.log("That's a draw!");
+        messageText.textContent = "That's a draw!";
         return 0;
     }
     if (routesMap.get(route)) {
-        console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+        messageText.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
         return 1;
     }
-    console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+    messageText.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
     return -1;
 }
 
-function getScore(choice, gameScore) {
-    const result = playRound(choice, getComputerChoice());
+function getScore(choice, gameScore, messageText) {
+    const result = playRound(choice, getComputerChoice(), messageText);
     if (result === 1) {
         playerScore++;
         gameScore.textContent = `Player Score: ${playerScore} - Computer Score: ${computerScore}`;
@@ -53,6 +53,9 @@ function playGame() {
     gameScore.textContent = `Player Score: ${playerScore} - Computer Score: ${computerScore}`;
     scoreContainer.appendChild(gameScore);
 
+    const message = document.createElement("p");
+    resultWindow.appendChild(message);
+
     const rockBtn = document.createElement("button");
     rockBtn.textContent = "Rock";
     const paperBtn = document.createElement("button");
@@ -61,34 +64,21 @@ function playGame() {
     scissorsBtn.textContent = "Scissors";
 
     rockBtn.addEventListener("click", () => {
-        getScore("rock", gameScore);
+        getScore("rock", gameScore, message);
     });
     paperBtn.addEventListener("click", () => {
-        getScore("paper", gameScore)
+        getScore("paper", gameScore, message);
     });
     scissorsBtn.addEventListener("click", () => {
-        getScore("scissors", gameScore)
+        getScore("scissors", gameScore, message);
     });
 
     btnContainer.appendChild(rockBtn);
     btnContainer.appendChild(paperBtn);
     btnContainer.appendChild(scissorsBtn);
-
-    // for (let i = 0; i < 5; i++) {
-    //     let winner = playRound(getHumanChoice(), getComputerChoice());
-    //     if (winner === 1) {
-    //         humanScore++;
-    //     } else if (winner === 2) {
-    //         computerScore++;
-    //     }
-    // }
-    // if (humanScore > computerScore) {
-    //     console.log(`You won the game! Total points: ${humanScore}`);
-    // } else {
-    //     console.log(`You lost the game! Total points: ${humanScore}`);
-    // }
 }
 
+// Map all possibilities of player round winning
 const routesMap = new Map([ 
     ["scissors-paper",  1],
     ["rock-scissors",   1],
