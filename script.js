@@ -40,11 +40,29 @@ function getScore(choice, gameScore, messageText) {
         computerScore++;
         gameScore.textContent = `Player Score: ${playerScore} - Computer Score: ${computerScore}`;
     }
-    return result;
+    countRound(gameScore);
+}
+
+function countRound(gameScore) {
+    if (roundCounter === 5) {
+        const gameButtons = document.querySelectorAll("button");
+        gameButtons[0].remove();
+        gameButtons[1].remove();
+        gameButtons[2].remove();
+
+        if (playerScore > computerScore) {
+            gameScore.textContent = `You won the game with ${playerScore} points!`;
+        } else if (computerScore > playerScore) {
+            gameScore.textContent = `You lost the game with only ${playerScore} points!`;
+        } else {
+            gameScore.textContent = `Neither of you won the game. Player score: ${playerScore}, computer score: ${computerScore}`;
+        }
+    }
+    roundCounter++;
 }
 
 function playGame() {
-    // Make the references of the HTML file
+    // Make the references from the HTML file
     const btnContainer = document.querySelector(".buttonContainer");
     const scoreContainer = document.querySelector(".scoreContainer");
     const resultWindow = document.querySelector(".resultWindow");
@@ -85,8 +103,8 @@ const routesMap = new Map([
     ["paper-rock",      1]
 ]);
 
-// Track the scores
 let playerScore = 0;
 let computerScore = 0;
+let roundCounter = 0;
 
 playGame();
